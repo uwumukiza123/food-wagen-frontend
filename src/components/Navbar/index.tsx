@@ -6,7 +6,7 @@ const Navbar = () => {
     <div className="py-[18.5px]">
       <div className="flex justify-between">
         <Image
-          src="../../../img/logo.svg"
+          src="/img/logo.svg"
           alt="site logo"
           width={1000}
           height={1000}
