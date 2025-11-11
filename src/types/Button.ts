@@ -1,5 +1,5 @@
 export type ButtonProps = {
-  text: string;
+  text: string | number;
   className?: string;
   variant?: string;
   hasImage?: boolean;
