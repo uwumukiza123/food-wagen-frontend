@@ -44,7 +44,7 @@ const Button = ({
 
     case "red":
       return (
-        <div className={clsx(baseClass, "bg-[--color-linearRed]")}>
+        <div className={clsx(baseClass, "bg-[#F65900]")}>
           {showImage && (
             <Image
               src="/img/searchIcon.svg"
@@ -67,8 +67,17 @@ const Button = ({
 
     case "black":
       return (
-        <div className={clsx(baseClass, "bg-black text-white")}>
-          <span>{text}</span>
+        <div className={clsx(baseClass)}>
+          {showImage && (
+            <Image
+              src="/img/shoppingIcon.svg"
+              alt="search icon"
+              width={16}
+              height={16}
+              className="inline"
+            />
+          )}
+          <span className="text-[#757575]">{text}</span>
         </div>
       );
 
