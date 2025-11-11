@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import MealList from "@/components/MealList";
 import { MealListData } from "@/types/MealList";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [meals, setMeals] = useState<MealListData[]>([]);
@@ -40,6 +41,7 @@ export default function Home() {
           <MealList data={meals} />
         )}
       </section>
+      <Footer />
     </div>
   );
 }
