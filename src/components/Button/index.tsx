@@ -68,7 +68,7 @@ const Button = ({
 
     case "black":
       return (
-        <div className={clsx(baseClass)}>
+        <div className={`${clsx(baseClass)} w-1/2`}>
           {showImage && (
             <Image
               src="/img/shoppingIcon.svg"
@@ -78,7 +78,7 @@ const Button = ({
               className="inline"
             />
           )}
-          <span className="text-gray-[#757575]">{text}</span>
+          <span className="text-[#757575]">{text}</span>
         </div>
       );
 
