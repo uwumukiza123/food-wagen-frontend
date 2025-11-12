@@ -13,6 +13,7 @@ const MealList = ({ data }: MealListProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<"add" | "edit" | "delete">("add");
   const [selectedMeal, setSelectedMeal] = useState<MealListData | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const handleOpenPopup = (
     mode: "add" | "edit" | "delete",
@@ -25,10 +26,12 @@ const MealList = ({ data }: MealListProps) => {
 
   const handleClosePopup = () => setIsPopupOpen(false);
 
+  const visibleMeals = showAll ? data : data.slice(0, 8);
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {data.map((meal) => (
+        {visibleMeals.map((meal) => (
           <MealListCard
             key={meal.name}
             {...meal}
@@ -37,6 +40,17 @@ const MealList = ({ data }: MealListProps) => {
           />
         ))}
       </div>
+
+      {data.length > 8 && (
+        <div className="flex justify-center mt-4">
+          <button
+            className="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 rounded-2xl"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Show Less" : "Show More"}
+          </button>
+        </div>
+      )}
 
       <Popup
         isOpen={isPopupOpen}
