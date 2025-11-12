@@ -3,4 +3,5 @@ export type ButtonProps = {
   className?: string;
   variant?: string;
   hasImage?: boolean;
+  onClick?: () => void;
 };
