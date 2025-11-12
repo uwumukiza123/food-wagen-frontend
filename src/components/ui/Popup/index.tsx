@@ -7,6 +7,9 @@ const Popup: React.FC<MealModalProps> = ({
   onClose,
   mode = "add",
   initialData = {},
+  onAdd,
+  onDelete,
+  onEdit,
 }) => {
   if (!isOpen) return null;
 
@@ -52,7 +55,12 @@ const Popup: React.FC<MealModalProps> = ({
     }
 
     setError(null);
-    console.log(`Submitting form in ${mode} mode with data:`, formData);
+
+    if (mode === "add" && onAdd) onAdd(formData);
+    if (mode === "edit" && onEdit) onEdit(formData);
+    if (mode === "delete" && onDelete && initialData?.id)
+      onDelete(initialData.id);
+
     onClose();
   };
 

@@ -5,6 +5,7 @@ export type MealFormData = {
   restaurantName?: string;
   restaurantLogo?: string;
   restaurantStatus?: "open" | "close" | "";
+  id?: any;
 };
 
 export type MealModalMode = "add" | "edit" | "delete";
@@ -12,6 +13,9 @@ export type MealModalMode = "add" | "edit" | "delete";
 export interface MealModalProps {
   isOpen: boolean;
   onClose: () => void;
-  mode?: MealModalMode;
+  mode: "add" | "edit" | "delete";
   initialData?: Partial<MealFormData>;
+  onAdd?: (data: MealFormData) => void;
+  onEdit?: (data: MealFormData) => void;
+  onDelete?: (id: string) => void;
 }
