@@ -7,18 +7,17 @@ import { MealFormData } from "@/types/Popup";
 
 type MealListProps = {
   data: MealListData[];
+  onEditMeal: (updatedMeal: MealFormData) => void;
+  onDeleteMeal: (id: string) => void;
 };
 
-const MealList = ({ data }: MealListProps) => {
+const MealList = ({ data, onEditMeal, onDeleteMeal }: MealListProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<"add" | "edit" | "delete">("add");
   const [selectedMeal, setSelectedMeal] = useState<MealListData | null>(null);
   const [showAll, setShowAll] = useState(false);
 
-  const handleOpenPopup = (
-    mode: "add" | "edit" | "delete",
-    meal?: MealListData
-  ) => {
+  const handleOpenPopup = (mode: "edit" | "delete", meal?: MealListData) => {
     setPopupMode(mode);
     setSelectedMeal(meal || null);
     setIsPopupOpen(true);
@@ -26,14 +25,23 @@ const MealList = ({ data }: MealListProps) => {
 
   const handleClosePopup = () => setIsPopupOpen(false);
 
-  const visibleMeals = showAll ? data : data.slice(0, 8);
+  const handleEdit = (updatedData: MealFormData) => {
+    if (!selectedMeal) return;
+    onEditMeal({ ...selectedMeal, ...updatedData });
+  };
+
+  const handleDelete = (id: string) => {
+    onDeleteMeal(id);
+  };
+
+  const visibleData = showAll ? data : data.slice(0, 8);
 
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {visibleMeals.map((meal) => (
+        {visibleData.map((meal) => (
           <MealListCard
-            key={meal.name}
+            key={meal.id}
             {...meal}
             onEdit={() => handleOpenPopup("edit", meal)}
             onDelete={() => handleOpenPopup("delete", meal)}
@@ -44,8 +52,8 @@ const MealList = ({ data }: MealListProps) => {
       {data.length > 8 && (
         <div className="flex justify-center mt-4">
           <button
-            className="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 rounded-2xl"
             onClick={() => setShowAll(!showAll)}
+            className="px-4 py-2 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition"
           >
             {showAll ? "Show Less" : "Show More"}
           </button>
@@ -56,7 +64,9 @@ const MealList = ({ data }: MealListProps) => {
         isOpen={isPopupOpen}
         onClose={handleClosePopup}
         mode={popupMode}
-        initialData={(selectedMeal as unknown as Partial<MealFormData>) || {}}
+        initialData={selectedMeal || {}}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
       />
     </div>
   );

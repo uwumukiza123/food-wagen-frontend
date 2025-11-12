@@ -8,6 +8,7 @@ export type MealListData = {
   image: string;
   price: string;
   status: string;
+  id?: any;
 };
 
 export type MealListProps = {
