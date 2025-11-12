@@ -6,10 +6,12 @@ const Input = ({
   onChange,
   required,
   error,
+  name,
 }: any) => {
   return (
     <div className="mb-4">
       <input
+        name={name}
         type={type}
         placeholder={placeholder}
         value={value}
