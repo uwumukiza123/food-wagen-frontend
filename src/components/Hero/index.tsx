@@ -4,8 +4,8 @@ import Button from "../Button";
 const Hero = () => {
   return (
     <div className="w-[76.875%] mx-auto">
-      <div className="flex">
-        <div className="text-white w-3/5 pt-8">
+      <div className="grid lg:flex ">
+        <div className="text-white w-full lg:w-3/5 pt-8">
           <h1 className="font-sans text-7xl font-bold">Are you starving?</h1>
           <div className="py-6">
             Within a few clicks, find meals that are accessible near you
