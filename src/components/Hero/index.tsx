@@ -5,11 +5,11 @@ const Hero = () => {
   return (
     <div className="w-[76.875%] mx-auto">
       <div className="flex">
-        <div className="text-white">
-          <h1 className="font-sans text-[88px] font-bold">Are you starving?</h1>
-          <span>
+        <div className="text-white w-3/5 pt-8">
+          <h1 className="font-sans text-7xl font-bold">Are you starving?</h1>
+          <div className="py-6">
             Within a few clicks, find meals that are accessible near you
-          </span>
+          </div>
           <div className="bg-white rounded-2xl p-6">
             <div className="flex gap-2">
               <Button text={"Delivery"} variant="orange" hasImage={true} />
