@@ -1,36 +1,49 @@
+"use client";
 import { useState } from "react";
 import MealListCard from "./Card";
-import { MealListProps } from "@/types/MealList";
+import Popup from "../ui/Popup";
+import { MealListData } from "@/types/MealList";
+import { MealFormData } from "@/types/Popup";
+
+type MealListProps = {
+  data: MealListData[];
+};
 
 const MealList = ({ data }: MealListProps) => {
-  const [showAll, setShowAll] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupMode, setPopupMode] = useState<"add" | "edit" | "delete">("add");
+  const [selectedMeal, setSelectedMeal] = useState<MealListData | null>(null);
 
-  const visibleData = showAll ? data : data.slice(0, 8);
+  const handleOpenPopup = (
+    mode: "add" | "edit" | "delete",
+    meal?: MealListData
+  ) => {
+    setPopupMode(mode);
+    setSelectedMeal(meal || null);
+    setIsPopupOpen(true);
+  };
 
-  const hasMoreThanEight = data.length > 8;
+  const handleClosePopup = () => setIsPopupOpen(false);
 
   return (
     <div>
-      <div className="flex items-center justify-center">
-        <h2 className="text-5xl py-20 font-bold">Featured Meals</h2>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {visibleData.map((item, index) => (
-          <MealListCard key={item.name || index} {...item} />
+        {data.map((meal) => (
+          <MealListCard
+            key={meal.name}
+            {...meal}
+            onEdit={() => handleOpenPopup("edit", meal)}
+            onDelete={() => handleOpenPopup("delete", meal)}
+          />
         ))}
       </div>
 
-      {hasMoreThanEight && (
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={() => setShowAll((prev) => !prev)}
-            className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
-          >
-            {showAll ? "Show Less" : "Show More"}
-          </button>
-        </div>
-      )}
+      <Popup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        mode={popupMode}
+        initialData={(selectedMeal as unknown as Partial<MealFormData>) || {}}
+      />
     </div>
   );
 };

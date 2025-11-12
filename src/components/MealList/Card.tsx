@@ -4,6 +4,11 @@ import Image from "next/image";
 import Button from "../Button";
 import type { MealListData } from "@/types/MealList";
 
+interface MealListCardProps extends MealListData {
+  onEdit?: () => void;
+  onDelete?: () => void;
+}
+
 const MealListCard = ({
   name,
   rating,
@@ -11,7 +16,9 @@ const MealListCard = ({
   price,
   status,
   image,
-}: MealListData) => {
+  onEdit,
+  onDelete,
+}: MealListCardProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -63,8 +70,8 @@ const MealListCard = ({
                 <button
                   className="block w-full text-left text-sm px-3 py-1 hover:bg-gray-100"
                   onClick={() => {
-                    console.log("Update clicked");
                     setMenuOpen(false);
+                    onEdit?.();
                   }}
                 >
                   Edit
@@ -72,8 +79,8 @@ const MealListCard = ({
                 <button
                   className="block w-full text-left text-sm px-3 py-1 hover:bg-gray-100 text-red-500"
                   onClick={() => {
-                    console.log("Delete clicked");
                     setMenuOpen(false);
+                    onDelete?.();
                   }}
                 >
                   Delete

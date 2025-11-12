@@ -11,11 +11,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div
-        className={`transition-all duration-300 ${
-          isModalOpen ? "filter- blur-sm-" : ""
-        }`}
-      >
+      <div className={`transition-all duration-300`}>
         <div className="py-[18.5px]">
           <div className="flex justify-between items-center">
             <Image

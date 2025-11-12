@@ -29,17 +29,12 @@ const Popup: React.FC<MealModalProps> = ({
 
   const actionButtonMap = {
     add: "Add",
-    edit: "Save Changes",
-    delete: "Confirm Delete",
+    edit: "Save",
+    delete: "Yes",
   } as const;
 
   const title = titleMap[mode];
   const actionButtonText = actionButtonMap[mode];
-
-  const actionButtonClasses =
-    mode === "delete"
-      ? "bg-red-500 hover:bg-red-600"
-      : "bg-orange-500 hover:bg-orange-600";
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -65,9 +60,9 @@ const Popup: React.FC<MealModalProps> = ({
     if (mode === "delete") {
       return (
         <p className="text-gray-700 mb-6">
-          Are you sure you want to delete the meal: **
-          {initialData.foodName || "Selected Meal"}**? This action cannot be
-          undone.
+          Are you sure you want to delete the meal:{" "}
+          <strong>{initialData.foodName || "Selected Meal"}</strong>? This
+          action cannot be undone.
         </p>
       );
     }
@@ -138,11 +133,11 @@ const Popup: React.FC<MealModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 flex justify-center items-center z-50 p-4"
+      className="fixed inset-0 z-50 flex justify-center items-center p-4 backdrop-blur-xs"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-2xl max-w-lg w-full p-8"
+        className="bg-white rounded-xl shadow-2xl max-w-lg w-full p-8 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-3xl font-bold text-center text-orange-600 mb-6">
@@ -155,7 +150,7 @@ const Popup: React.FC<MealModalProps> = ({
           <div className="flex justify-between space-x-4 pt-2">
             <button
               type="submit"
-              className={`flex-1 py-3 font-semibold text-white rounded-lg transition duration-200 cursor-pointer ${actionButtonClasses}`}
+              className={`flex-1 py-3 font-semibold text-white rounded-lg transition duration-200 cursor-pointer bg-orange-500 hover:bg-orange-600`}
             >
               {actionButtonText}
             </button>
