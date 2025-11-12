@@ -8,6 +8,7 @@ const Button = ({
   text,
   variant = "gray",
   className,
+  onClick,
   hasImage,
 }: ButtonProps) => {
   const variantData = ButtonVariants.find((v) => v.variant === variant);
@@ -28,7 +29,7 @@ const Button = ({
   switch (variant) {
     case "orange":
       return (
-        <div className={clsx(baseClass, "bg-[#FF9A0E]")}>
+        <div className={clsx(baseClass, "bg-[#FF9A0E]")} onClick={onClick}>
           {showImage && (
             <Image
               src="/img/icon.svg"
@@ -77,14 +78,17 @@ const Button = ({
               className="inline"
             />
           )}
-          <span className="text-[#757575]">{text}</span>
+          <span className="text-gray-[#757575]">{text}</span>
         </div>
       );
 
     case "gray":
     default:
       return (
-        <div className={clsx(baseClass, "bg-gray-500 text-white")}>
+        <div
+          className={clsx(baseClass, "bg-gray-500 text-white")}
+          onClick={onClick}
+        >
           <span>{text}</span>
         </div>
       );
